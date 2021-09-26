@@ -35,27 +35,6 @@ public class UserController {
         return new ResponseEntity<>(userAccount, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/getUserByUname", method = RequestMethod.GET)
-    public UserAccount getUserByUserName(@RequestParam("username") String userName) {
-        UserAccount user = userService.getUserByUserName(userName);
-        if (!user.isAdmin()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only Admin Access", new Exception(""));
-        }
-
-        return user;
-    }
-
-    @RequestMapping(path = "/addItem", method = RequestMethod.POST)
-    public ResponseEntity<Item> addItem(@RequestBody AddItemWrapper itemWrapper) {
-        long userId = itemWrapper.getUserId();
-        UserAccount userById = userService.getUserById(userId);
-        if (!userById.isAdmin()) {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
-        Item item = itemService.addItem(itemWrapper.getItemName(), itemWrapper.getPrice());
-        return new ResponseEntity<>(item, HttpStatus.OK);
-    }
-
     @RequestMapping(path = "/card", method = RequestMethod.GET)
     public UserCard viewCard(@RequestParam("userid") long userId) {
         try {
@@ -63,6 +42,10 @@ public class UserController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal error", new Exception(""));
         }
+    }
+
+    public String welcomeUser(){
+        return ("<h1>Welcome User<h1>");
     }
 
 

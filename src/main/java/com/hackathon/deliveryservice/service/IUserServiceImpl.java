@@ -3,6 +3,7 @@ package com.hackathon.deliveryservice.service;
 import com.hackathon.deliveryservice.controllerwrapper.SignUpWrapper;
 import com.hackathon.deliveryservice.dao.ILoginUserDao;
 import com.hackathon.deliveryservice.dao.IUserAccountDao;
+import com.hackathon.deliveryservice.dao.IUserCardDao;
 import com.hackathon.deliveryservice.entities.LoginUser;
 import com.hackathon.deliveryservice.entities.UserAccount;
 import com.hackathon.deliveryservice.entities.UserCard;
@@ -19,6 +20,8 @@ public class IUserServiceImpl implements IUserService {
     private IUserAccountDao userAccountDao;
     @Autowired
     private ILoginUserDao loginUserDao;
+    @Autowired
+    private IUserCardDao userCardDao;
 
 
     @Override
@@ -49,13 +52,14 @@ public class IUserServiceImpl implements IUserService {
         loginUser.setUser(userAccount);
         loginUser.setUsername(signUpWrapper.getUsername());
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(16);
-        loginUser.setPassWord("{bcrypt}"+bCryptPasswordEncoder.encode(signUpWrapper.getPwd()));
+        loginUser.setPassWord(bCryptPasswordEncoder.encode(signUpWrapper.getPwd()));
         loginUserDao.save(loginUser);
 
         //create card for the user
         UserCard userCard = new UserCard();
         userCard.setUserAccount(userAccount);
         userCard.setPoints(0);//initially 0 points
+        userCardDao.save(userCard);
 
 
         return userAccount;
