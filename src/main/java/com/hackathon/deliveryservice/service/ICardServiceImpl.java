@@ -1,5 +1,6 @@
 package com.hackathon.deliveryservice.service;
 
+import com.hackathon.deliveryservice.dao.ICardTransactionDao;
 import com.hackathon.deliveryservice.dao.IUserAccountDao;
 import com.hackathon.deliveryservice.dao.IUserCardDao;
 import com.hackathon.deliveryservice.entities.CardTransaction;
@@ -20,6 +21,8 @@ public class ICardServiceImpl implements ICardService {
     private IUserCardDao userCardDao;
     @Autowired
     private IUserAccountDao userAccountDao;
+    @Autowired
+    private ICardTransactionDao cardTransactionDao;
 
     @Override
     public void addTransaction(CardTransaction transaction) {
@@ -72,6 +75,7 @@ public class ICardServiceImpl implements ICardService {
         cardTransaction.setTransactionType(true);
         cardTransaction.setPoints(order.getPrice());
         cardTransaction.setOrder(order);
+        cardTransactionDao.save(cardTransaction);
 
         if (transactionList == null) {
             transactionList = new ArrayList<>();

@@ -18,10 +18,11 @@ public class UserControllerTest {
 
     @Test
     public void testSignUp() {
-        SignUpWrapper signUpWrapper = new SignUpWrapper("TestAdmin", "9709635639", "admin@xyz.com", "tadmin", "tpwd",
-                true);
+        SignUpWrapper signUpWrapper = new SignUpWrapper("TestAdmin", "9709635639", "admin@xyz.com", "tadmin", "tpwd", true);
+        SignUpWrapper userSignUpWrapper = new SignUpWrapper("TestUser", "9709635699", "user@xyz.com", "tuser", "tpwd", false);
 
         ResponseEntity<UserAccount> userAccountResponseEntity = userController.signUp(signUpWrapper);
+        ResponseEntity<UserAccount> userAccountResponseEntity1 = userController.signUp(userSignUpWrapper);
 
 
     }
