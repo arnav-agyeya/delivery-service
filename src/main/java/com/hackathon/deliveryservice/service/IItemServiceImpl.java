@@ -15,7 +15,7 @@ public class IItemServiceImpl implements IItemService {
 
     @Override
     public List<Item> getAllItems() {
-        return null;
+        return itemDao.findAll();
     }
 
     @Override

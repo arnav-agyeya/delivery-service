@@ -23,10 +23,14 @@ public class SplitUpUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         LoginUser userInfoByUserName = loginUserDao.findLoginUserByUsername(userName);
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("User");
+        SimpleGrantedAuthority authority = getAuthority(userInfoByUserName);
         return new MyUserDetails(new ArrayList<>() {{
             add(authority);
         }}, userInfoByUserName.getPassWord(), userName, true);
+    }
+
+    private SimpleGrantedAuthority getAuthority(LoginUser userInfoByUserName) {
+        return new SimpleGrantedAuthority(userInfoByUserName.getUser().isAdmin()?"ROLE_ADMIN":"ROLE_USER");
     }
 
     private static class MyUserDetails implements UserDetails {

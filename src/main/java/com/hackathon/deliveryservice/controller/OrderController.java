@@ -2,6 +2,7 @@ package com.hackathon.deliveryservice.controller;
 
 import com.hackathon.deliveryservice.controllerwrapper.PlaceOrderWrapper;
 import com.hackathon.deliveryservice.entities.CardTransaction;
+import com.hackathon.deliveryservice.entities.Item;
 import com.hackathon.deliveryservice.entities.Order;
 import com.hackathon.deliveryservice.service.ICardService;
 import com.hackathon.deliveryservice.service.IItemService;
@@ -40,9 +41,14 @@ public class OrderController {
 
     }
 
-    @RequestMapping(path = "/getOrders")
+    @RequestMapping(path = "/getOrders", method = RequestMethod.GET)
     public List<Order> getOrdersOfUser(@RequestParam("userid") long userId) {
         return orderManagementService.getOrdersOfAUser(userId);
+    }
+
+    @RequestMapping(path = "/getItems", method = RequestMethod.GET)
+    public List<Item> getItems() {
+        return itemService.getAllItems();
     }
 
 
