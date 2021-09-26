@@ -55,13 +55,6 @@ public class IUserServiceImpl implements IUserService {
         loginUser.setPassWord(bCryptPasswordEncoder.encode(signUpWrapper.getPwd()));
         loginUserDao.save(loginUser);
 
-        //create card for the user
-        UserCard userCard = new UserCard();
-        userCard.setUserAccount(userAccount);
-        userCard.setPoints(0);//initially 0 points
-        userCardDao.save(userCard);
-
-
         return userAccount;
 
     }

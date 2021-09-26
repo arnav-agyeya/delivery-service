@@ -1,8 +1,6 @@
 package com.hackathon.deliveryservice.controller;
 
-import com.hackathon.deliveryservice.controllerwrapper.AddItemWrapper;
 import com.hackathon.deliveryservice.controllerwrapper.SignUpWrapper;
-import com.hackathon.deliveryservice.entities.Item;
 import com.hackathon.deliveryservice.entities.UserAccount;
 import com.hackathon.deliveryservice.entities.UserCard;
 import com.hackathon.deliveryservice.service.ICardService;
@@ -42,10 +40,6 @@ public class UserController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal error", new Exception(""));
         }
-    }
-
-    public String welcomeUser(){
-        return ("<h1>Welcome User<h1>");
     }
 
 
