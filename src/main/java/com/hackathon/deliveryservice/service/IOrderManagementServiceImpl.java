@@ -28,6 +28,7 @@ public class IOrderManagementServiceImpl implements IOrderManagementService {
     private IItemDao itemDao;
     @Autowired
     private IItemQuantDao itemQuantDao;
+
     @Override
     public Order placeOrder(PlaceOrderWrapper orderWrapper) {
         Order order = new Order();
@@ -42,7 +43,7 @@ public class IOrderManagementServiceImpl implements IOrderManagementService {
         order.setUser(userAccount);
 
         orderDao.save(order);
-        return  order;
+        return order;
     }
 
     private List<ItemQuant> getItemQuantList(PlaceOrderWrapper orderWrapper) {
@@ -61,6 +62,10 @@ public class IOrderManagementServiceImpl implements IOrderManagementService {
 
     @Override
     public List<Order> getOrdersOfAUser(long userId) {
-        return null;
+        UserAccount userAccountDaoById = userAccountDao
+                .findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Wrong User Id"));
+        System.out.println(userAccountDaoById);
+        return orderDao.findAllByUser(userAccountDaoById);
     }
 }
